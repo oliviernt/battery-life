@@ -3,30 +3,29 @@
  * author: @oliviernt
  */
 (function(global) {
-  var doc = global.document,
-      navigator = global.navigator,
-      display = doc.querySelector('.display'),
-      jumbotron = doc.querySelector('.jumbotron'),
-      sound = doc.querySelector('.sound'),
-      battery,
-      WARNING_LEVEL = 10,
-      DANGER_LEVEL = 4;
+  const doc = global.document;
+  const navigator = global.navigator;
+  const display = doc.querySelector('.display');
+  const jumbotron = doc.querySelector('.jumbotron');
+  const sound = doc.querySelector('.sound');
+  const WARNING_LEVEL = 10;
+  const DANGER_LEVEL = 4;
 
   function msg(txt, status) {
     status = status || 'success';
-    var p = doc.createElement('p');
+    const p = doc.createElement('p');
     p.innerHTML = txt;
     display.appendChild(p);
   }
 
   function displayTime(timeInSec) {
-    var hours = Math.floor(timeInSec / 60 / 60),
+    const hours = Math.floor(timeInSec / 60 / 60),
         minutes = Math.floor(timeInSec / 60) - Math.floor(timeInSec / 60 / 60) * 60,
         seconds = 0;
-    return hours + 'h ' + minutes + 'm';
+    return '<b>' + hours + 'h ' + minutes + 'm</b>';
   }
 
-  function displayInfo() {
+  function displayInfo(battery) {
     display.innerHTML = '';
     msg('Your battery is <b>' + (battery.charging ? 'charging' : 'discharging') + '</b>.');
     if (battery.charging && battery.chargingTime !== global.Infinity) {
@@ -36,12 +35,12 @@
     } else if (battery.dischargingTime !== global.Infinity) {
       msg('Time until fully discharged: ' + displayTime(battery.dischargingTime));
     }
-    msg('Level: ' + (Math.round(battery.level * 10000) / 100) + '%' );
-    displayLevelWarning();
+    msg('Level: <b>' + (Math.round(battery.level * 10000) / 100) + '%</b>' );
+    displayLevelWarning(battery);
   }
 
-  function displayLevelWarning() {
-    var level = Math.round(battery.level * 100);
+  function displayLevelWarning(battery) {
+    const level = Math.round(battery.level * 100);
     if (level <= DANGER_LEVEL && !battery.charging) {
       jumbotron.classList.remove('warning');
       jumbotron.classList.add('danger');
@@ -58,21 +57,20 @@
     }
   }
 
-  function handleBattery(bat) {
-    battery = bat;
-    battery.addEventListener('chargingchange', displayInfo);
-    battery.addEventListener('chargingtimechange', displayInfo);
-    battery.addEventListener('dischargingtimechange', displayInfo);
-    battery.addEventListener('levelchange', displayInfo);
+  function handleBattery(battery) {
+    battery.addEventListener('chargingchange', displayInfo.bind(null, battery));
+    battery.addEventListener('chargingtimechange', displayInfo.bind(null, battery));
+    battery.addEventListener('dischargingtimechange', displayInfo.bind(null, battery));
+    battery.addEventListener('levelchange', displayInfo.bind(null, battery));
 
-    displayInfo();
+    displayInfo(battery);
   }
 
   if ('getBattery' in navigator) {
     navigator.getBattery().then(handleBattery);
-  } else if ('batteyr' in navigator) {
+  } else if ('battery' in navigator) {
     handleBattery(navigator.battery);
   } else {
     msg('Sorry, your browser doesn\'t support the BatteryManager Web API.');
   }
-})(this);
+})(window);

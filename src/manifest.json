@@ -1,0 +1,41 @@
+{
+  "name": "Battery Life",
+  "short_name": "Battery Life",
+  "lang": "en-US",
+  "start_url": "https://oliviernt.github.io/battery-life/?utm_source=start_url",
+  "display": "standalone",
+  "theme_color": "#eeeeee",
+  "background_color": "#eeeeee",
+  "icons": [
+    {
+      "src": "battery-chargin-x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "battery-chargin-x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "battery-chargin-x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "battery-chargin-x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "battery-chargin-x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "battery-chargin-x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
