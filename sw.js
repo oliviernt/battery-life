@@ -1,10 +1,7 @@
 
 const CACHE = 'battery-life-v1';
 const FILES = [
-    '/',
-    '/?utm_source=start_url',
     'index.html',
-    'index.html?utm_source=start_url',
     'battery-charging-x48.png',
     'battery-charging-x96.png',
     'battery-charging-x128.png',

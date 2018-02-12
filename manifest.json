@@ -2,7 +2,7 @@
   "name": "Battery Life",
   "short_name": "Battery Life",
   "lang": "en-US",
-  "start_url": "https://oliviernt.github.io/battery-life/?utm_source=start_url",
+  "start_url": "index.html?utm_source=start_url",
   "display": "standalone",
   "theme_color": "#eeeeee",
   "background_color": "#eeeeee",
